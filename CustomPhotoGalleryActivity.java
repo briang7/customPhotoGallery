@@ -72,26 +72,20 @@ public class CustomPhotoGalleryActivity extends AppCompatActivity {
 
         grdImages= findViewById(R.id.grdImages);
         grdImages.setLayoutManager(new GridLayoutManager(this, 4));
-
-
         btnSelect= (Button) findViewById(R.id.btnSelect);
         imagePreview=(ImageView)findViewById(R.id.image_preview);
 
         final String[] columns = { MediaStore.Images.Media.DATA, MediaStore.Images.Media._ID };
-//        final String orderBy = MediaStore.Images.Media._ID;
-        @SuppressWarnings("deprecation")
         Cursor imagecursor = this.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, columns, null, null, orderBy  + " DESC");
         int image_column_index = imagecursor.getColumnIndex(MediaStore.Images.Media._ID);
         this.count = imagecursor.getCount();
 
         for (int i = 0; i < this.count; i++) {
             thumbnailClass thumb = new thumbnailClass();
-
             imagecursor.moveToPosition(i);
             thumb.ids = imagecursor.getInt(image_column_index);
             int dataColumnIndex = imagecursor.getColumnIndex(MediaStore.Images.Media.DATA);
             thumb.arrPath = imagecursor.getString(dataColumnIndex);
-
             thumbnailClassList.add(thumb);
         }
 
@@ -167,15 +161,13 @@ public class CustomPhotoGalleryActivity extends AppCompatActivity {
 
 
 
-//    @SuppressLint("StaticFieldLeak")
     private void setBitmap(final ImageAdapter1.ViewHolder holder, final int holderPos, final int id, final String path) {
         BackgroundStuff backgroundStuff = new BackgroundStuff();
         backgroundStuff.setHolder(holder);
         backgroundStuff.setHolderPos(holderPos);
         backgroundStuff.setId(id);
         backgroundStuff.setPath(path);
-
-
+        
          new bitmap1(CustomPhotoGalleryActivity.this).execute(backgroundStuff);
     }
 
@@ -217,9 +209,6 @@ public class CustomPhotoGalleryActivity extends AppCompatActivity {
                 Log.v("-----hash3","-------"+String.valueOf(result.getHolder().hashCode()));
                 Log.v("-----hash4","-------"+result.getHolderPos());
             }
-
-
-
         }
     }
     private void imagePreview1(final ImageView ip,final int id, final String path){
@@ -228,8 +217,7 @@ public class CustomPhotoGalleryActivity extends AppCompatActivity {
         backgroundStuff.setId(id);
         backgroundStuff.setPath(path);
         loading.put(id, true);
-
-
+        
         new ip2(CustomPhotoGalleryActivity.this).execute(backgroundStuff);
         new ip1(CustomPhotoGalleryActivity.this).execute(backgroundStuff);
 
@@ -250,8 +238,7 @@ public class CustomPhotoGalleryActivity extends AppCompatActivity {
             if(imagePreviewId!=farts[0].getId()){
                 return null;
             }
-
-
+            
             Uri uri = MediaStore.Images.Media.getContentUri(farts[0].getPath());
             try {
                 Log.v("---ipCheck4 "+uri,"4 "+farts[0].getPath());
@@ -296,7 +283,6 @@ public class CustomPhotoGalleryActivity extends AppCompatActivity {
                 return null;
             }
 
-//            Uri uri = MediaStore.Images.Media.getContentUri(farts[0].getPath());
             try {
 //                Log.v("---ipCheck4 "+uri,"4 "+farts[0].getPath());
                 Bitmap bitmap =  MediaStore.Images.Thumbnails.getThumbnail(activity.getApplicationContext().getContentResolver(), farts[0].getId(), MediaStore.Images.Thumbnails.MINI_KIND, null);
@@ -320,15 +306,10 @@ public class CustomPhotoGalleryActivity extends AppCompatActivity {
                 reoreinted.getView().setImageBitmap(reoreinted.getBitmap());
             } else {
                 Log.v("---thumb to slow ","---------------------------- ");
-
             }
-
         }
-
     }
-
-
-
+    
     public class ImageAdapter1 extends RecyclerView.Adapter<ImageAdapter1.ViewHolder> {
 
         private List<thumbnailClass> mData;
@@ -358,8 +339,7 @@ public class CustomPhotoGalleryActivity extends AppCompatActivity {
 
             Log.v("-------holder1","-----"+holder.hashCode());
             Log.v("-------holder2","-----"+holder.getAdapterPosition());
-
-
+            
             hashMap.put(holder.hashCode(), holder.getAdapterPosition());
             holder.imgThumb.setImageResource(R.drawable.grey_square);
 
@@ -406,12 +386,10 @@ public class CustomPhotoGalleryActivity extends AppCompatActivity {
             holder.imgThumb.setOnClickListener(new View.OnClickListener() {
 
                 public void onClick(View v) {
-//                    int id = mHolder.chkImage.getId();
 
                     Log.v("---ipCheck1", "------ " + pos);
                     Log.v("---listSize1", "----- " + thumbnailsSelectionList.size());
-
-
+                    
                     if (thumbnailsSelectionList.indexOf(pos) != -1) {
                         int indexNum = thumbnailsSelectionList.indexOf(pos);
 
@@ -424,7 +402,6 @@ public class CustomPhotoGalleryActivity extends AppCompatActivity {
                         if (size > 0) {
                             int sizeMinusOne = thumbnailsSelectionList.get(thumbnailsSelectionList.size() - 1);
                             Log.v("---ipCheck2", "----" + sizeMinusOne);
-
                             imagePreviewId = thumbnailClassList.get(sizeMinusOne).getIds();
                             imagePreview.animate().alpha(0);
                             imagePreview1(imagePreview, thumbnailClassList.get(sizeMinusOne).getIds(), thumbnailClassList.get(sizeMinusOne).getArrPath());
@@ -434,16 +411,15 @@ public class CustomPhotoGalleryActivity extends AppCompatActivity {
                         }
 
                     } else if (thumbnailsSelectionList.size() < limit) {
-
-                                Log.v("---ipCheck3", "3");
-                            imagePreviewId = thumbnailClassList.get(pos).ids;
-                            imagePreview.animate().alpha(0);
-                            imagePreview1(imagePreview, thumbnailClassList.get(pos).getIds(), thumbnailClassList.get(pos).getArrPath());
-                            mHolder.chkImage.setChecked(true);
-                            thumbnailsSelectionList.add(pos);
+                        Log.v("---ipCheck3", "3");
+                        imagePreviewId = thumbnailClassList.get(pos).ids;
+                        imagePreview.animate().alpha(0);
+                        imagePreview1(imagePreview, thumbnailClassList.get(pos).getIds(), thumbnailClassList.get(pos).getArrPath());
+                        mHolder.chkImage.setChecked(true);
+                        thumbnailsSelectionList.add(pos);
 
                     } else {
-                            Toast.makeText(CustomPhotoGalleryActivity.this, "Limit is: "+limit, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CustomPhotoGalleryActivity.this, "Limit is: "+limit, Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -529,7 +505,7 @@ public class CustomPhotoGalleryActivity extends AppCompatActivity {
         return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
     }
 
-    public class thumbnailClass{
+    private class thumbnailClass{
         private String arrPath;
         private int ids;
 
@@ -550,7 +526,7 @@ public class CustomPhotoGalleryActivity extends AppCompatActivity {
         }
 
     }
-    public class BackgroundStuff{
+    private class BackgroundStuff{
         private int id;
         private int holderPos;
         private String path;
