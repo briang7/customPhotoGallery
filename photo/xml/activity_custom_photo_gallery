@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <com.naturefinder.classes.ZoomView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2">
+
+            <ImageView
+                android:id="@+id/image_preview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+        </com.naturefinder.classes.ZoomView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        >
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/grdImages"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+    </RelativeLayout>
+        <Button
+            android:id="@+id/btnSelect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select"
+            android:layout_marginTop="5dp"
+            />
+
+    </LinearLayout>
+
+
+</RelativeLayout>
