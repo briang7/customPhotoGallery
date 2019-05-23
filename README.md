@@ -4,4 +4,4 @@ Sample code from NatureFinder Android App.  This pulls all of the photos from th
 
 Some phones will rotate the pictures so I had to reorient each picture so that it is faceing right side up.  This takes a little bit of time, so it is done in the background.  Also put a check in place, using the recyclerview's hexcode, to make sure that the view's hexcode for the latest picture matches what is being done in the background, else the user has moved on and it wont be shown.  
 
-![Photo Gallery](pic)
+![Photo Gallery](Screenshot_20190509-023612_Nature Finder.jpg)
